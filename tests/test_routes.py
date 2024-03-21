@@ -202,7 +202,7 @@ class TestProductRoutes(TestCase):
         initial_count = self.get_product_count()
         test_product = products[0]
         resp = self.client.delete(f"{BASE_URL}/{test_product.id}")
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
         print(resp.data)
         self.assertEqual(len(resp.data), 0)
         resp = self.client.get(f"{BASE_URL}/{test_product.id}")
@@ -251,7 +251,7 @@ class TestProductRoutes(TestCase):
         available_count = len(available_products)
         logging.debug("Available Products [%d] %s", available_count, available_products)
 
-        resp = self.client.get(BASE_URL, query_string=f"available=true")
+        resp = self.client.get(BASE_URL, query_string="available=true")
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(available_count, len(data))

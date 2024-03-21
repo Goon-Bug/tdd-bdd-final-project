@@ -104,7 +104,7 @@ def list_products():
     name = request.args.get("name")
     category = request.args.get("category")
     available = request.args.get("available")
-    
+
     if name:
         products = Product.find_by_name(name)
         results = [product.serialize() for product in products]
@@ -116,7 +116,7 @@ def list_products():
         products = Product.find_by_availability(available_value)
     else:
         products = Product.all()
-    
+
     results = [product.serialize() for product in products]
     app.logger.info("[%s] Products returned", len(results))
     return results, status.HTTP_200_OK
